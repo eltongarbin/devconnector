@@ -7,12 +7,11 @@ const passport = require('passport');
 
 const router = express.Router();
 
+// Load User model
+const User = require('../../models/User');
 // Load Input Validation
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
-
-// Load User model
-const User = require('../../models/User');
 
 // @route  GET api/users/register
 // @desc   Register user
