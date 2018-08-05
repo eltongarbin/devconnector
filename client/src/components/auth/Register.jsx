@@ -1,8 +1,17 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import classname from 'classnames';
+import { connect } from 'react-redux';
 
-class Register extends Component {
+import history from '../../utils/history';
+import { registerUser } from '../../actions/authActions';
+
+class Register extends PureComponent {
+  static propTypes = {
+    registerUser: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
+  };
+
   state = {
     name: '',
     email: '',
@@ -10,6 +19,18 @@ class Register extends Component {
     password2: '',
     errors: {}
   };
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      history.push('/dashboard');
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.errors !== prevProps.errors) {
+      this.setState({ errors: this.props.errors });
+    }
+  }
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -25,10 +46,7 @@ class Register extends Component {
       password2: this.state.password2
     };
 
-    axios
-      .post('/api/users/register', newUser)
-      .then((res) => console.log(res.data))
-      .catch((err) => this.setState({ errors: err.response.data }));
+    this.props.registerUser(newUser);
   };
 
   render() {
@@ -118,4 +136,11 @@ class Register extends Component {
   }
 }
 
-export default Register;
+const mapStateToProps = ({ errors }) => ({
+  errors
+});
+
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(Register);
