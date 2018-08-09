@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { logoutUser } from '../../actions/authActions';
+import { clearCurrentProfile } from '../../actions/profileActions';
 
 class Navbar extends PureComponent {
   static propTypes = {
@@ -15,6 +16,7 @@ class Navbar extends PureComponent {
     e.preventDefault();
 
     this.props.logoutUser();
+    this.props.clearCurrentProfile();
   };
 
   render() {
@@ -90,5 +92,5 @@ const mapStateToProps = ({ auth }) => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, clearCurrentProfile }
 )(Navbar);

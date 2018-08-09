@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classname from 'classnames';
 import { connect } from 'react-redux';
 
 import history from '../../utils/history';
