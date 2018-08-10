@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import history from '../../utils/history';
 import { loginUser } from '../../actions/authActions';
-import TextFieldGroup from '../../common/TextFieldGroup';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 class Login extends PureComponent {
   static propTypes = {
@@ -27,7 +28,7 @@ class Login extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.errors !== prevProps.errors) {
+    if (!_.isEqual(this.props.errors, prevProps.errors)) {
       this.setState({ errors: this.props.errors });
     }
   }

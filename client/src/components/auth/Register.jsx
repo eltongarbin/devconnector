@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import history from '../../utils/history';
 import { registerUser } from '../../actions/authActions';
-import TextFieldGroup from '../../common/TextFieldGroup';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 class Register extends PureComponent {
   static propTypes = {
@@ -27,7 +28,7 @@ class Register extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.errors !== prevProps.errors) {
+    if (!_.isEqual(this.props.errors, prevProps.errors)) {
       this.setState({ errors: this.props.errors });
     }
   }
