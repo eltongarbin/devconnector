@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
+import { createProfile } from '../../actions/profileActions';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
 
-class CreateProfile extends Component {
+class CreateProfile extends PureComponent {
   static propTypes = {
     profile: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
@@ -31,9 +33,32 @@ class CreateProfile extends Component {
     errors: {}
   };
 
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(this.props.errors, prevProps.errors)) {
+      this.setState({ errors: this.props.errors });
+    }
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
-    console.log('submit');
+
+    const profileData = {
+      handle: this.state.handle,
+      company: this.state.company,
+      website: this.state.website,
+      location: this.state.location,
+      status: this.state.status,
+      skills: this.state.skills,
+      githubusername: this.state.githubusername,
+      bio: this.state.bio,
+      twitter: this.state.twitter,
+      facebook: this.state.facebook,
+      linkedin: this.state.linkedin,
+      youtube: this.state.youtube,
+      instagram: this.state.instagram
+    };
+
+    this.props.createProfile(profileData);
   };
 
   onChange = (e) => {
@@ -214,4 +239,7 @@ const mapStateToProps = ({ profile, errors }) => ({
   errors
 });
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(
+  mapStateToProps,
+  { createProfile }
+)(CreateProfile);
