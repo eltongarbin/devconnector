@@ -1,16 +1,18 @@
 import React, { PureComponent } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
+import _ from 'lodash';
 
+import { addExperience } from '../../actions/profileActions';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextAreaFieldGroup from '../common/TextAreaFieldGroup';
 
 class AddExperience extends PureComponent {
   static propTypes = {
     profile: PropTypes.object.isRequired,
-    errors: PropTypes.object.isRequired
+    errors: PropTypes.object.isRequired,
+    addExperience: PropTypes.func.isRequired
   };
 
   state = {
@@ -25,10 +27,26 @@ class AddExperience extends PureComponent {
     disabled: false
   };
 
+  componentDidUpdate(prevProps) {
+    if (!_.isEqual(this.props.errors, prevProps.errors)) {
+      this.setState({ errors: this.props.errors });
+    }
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
 
-    console.log('onSubmit');
+    const expData = {
+      company: this.state.company,
+      title: this.state.title,
+      location: this.state.location,
+      from: this.state.from,
+      to: this.state.to,
+      current: this.state.current,
+      description: this.state.description
+    };
+
+    this.props.addExperience(expData);
   };
 
   onChange = (e) => {
@@ -138,7 +156,7 @@ const mapStateToProps = ({ profile, errors }) => ({
   errors
 });
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps)
+export default connect(
+  mapStateToProps,
+  { addExperience }
 )(AddExperience);
