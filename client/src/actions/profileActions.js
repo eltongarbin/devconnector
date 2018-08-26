@@ -5,7 +5,8 @@ import {
   GET_PROFILE,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
-  GET_ERRORS
+  GET_ERRORS,
+  SET_CURRENT_USER
 } from './types';
 
 export const getCurrentProfile = () => async (dispatch) => {
@@ -25,6 +26,17 @@ export const createProfile = (profileData) => async (dispatch) => {
     history.push('/dashboard');
   } catch (error) {
     dispatch({ type: GET_ERRORS, payload: error.response.data });
+  }
+};
+
+export const deleteAccount = () => async (dispatch) => {
+  if (window.confirm('Are you sure? This can NOT be undone!')) {
+    try {
+      await axios.delete('/api/profile');
+      dispatch({ type: SET_CURRENT_USER, payload: {} });
+    } catch (error) {
+      dispatch({ type: GET_ERRORS, payload: error.response.data });
+    }
   }
 };
 
