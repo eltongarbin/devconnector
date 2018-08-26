@@ -18,6 +18,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/create-profile/CreateProfile';
+import EditProfile from './components/edit-profile/EditProfile';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -41,17 +42,12 @@ const App = () => {
           <Navbar />
           <Route exact path="/" component={Landing} />
           <div className="container">
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
             <Switch>
-              <PrivateRoute exact path="/dashboard" component={Dashboard} />
-            </Switch>
-            <Switch>
-              <PrivateRoute
-                exact
-                path="/create-profile"
-                component={CreateProfile}
-              />
+              <Route path="/register" component={Register} />
+              <Route path="/login" component={Login} />
+              <PrivateRoute path="/dashboard" component={Dashboard} />
+              <PrivateRoute path="/create-profile" component={CreateProfile} />
+              <PrivateRoute path="/edit-profile" component={EditProfile} />
             </Switch>
           </div>
           <Footer />
