@@ -20,6 +20,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/create-profile/CreateProfile';
 import EditProfile from './components/edit-profile/EditProfile';
 import AddExperience from './components/add-credentials/AddExperience';
+import AddEducation from './components/add-credentials/AddEducation';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -50,6 +51,7 @@ const App = () => {
               <PrivateRoute path="/create-profile" component={CreateProfile} />
               <PrivateRoute path="/edit-profile" component={EditProfile} />
               <PrivateRoute path="/add-experience" component={AddExperience} />
+              <PrivateRoute path="/add-education" component={AddEducation} />
             </Switch>
           </div>
           <Footer />

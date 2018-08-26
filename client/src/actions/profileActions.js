@@ -38,6 +38,15 @@ export const addExperience = (expData) => async (dispatch) => {
   }
 };
 
+export const addEducation = (eduData) => async (dispatch) => {
+  try {
+    await axios.post('/api/profile/education', eduData);
+    history.push('/dashboard');
+  } catch (error) {
+    dispatch({ type: GET_ERRORS, payload: error.response.data });
+  }
+};
+
 export const deleteAccount = () => async (dispatch) => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {
     try {
