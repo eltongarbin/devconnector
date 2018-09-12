@@ -22,6 +22,7 @@ import EditProfile from './components/edit-profile/EditProfile';
 import AddExperience from './components/add-credentials/AddExperience';
 import AddEducation from './components/add-credentials/AddEducation';
 import Profiles from './components/profiles/Profiles';
+import Profile from './components/profile/Profile';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -49,6 +50,7 @@ const App = () => {
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />]
               <Route path="/profiles" component={Profiles} />
+              <Route path="/profile/:handle" component={Profile} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
               <PrivateRoute path="/create-profile" component={CreateProfile} />
               <PrivateRoute path="/edit-profile" component={EditProfile} />
