@@ -95,7 +95,8 @@ class EditProfile extends PureComponent {
       twitter: profile.twitter,
       facebook: profile.facebook,
       linkedin: profile.linkedin,
-      youtube: profile.youtube
+      youtube: profile.youtube,
+      instagram: profile.instagram
     });
   };
 

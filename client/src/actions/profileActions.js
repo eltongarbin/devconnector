@@ -3,6 +3,7 @@ import axios from 'axios';
 import history from '../utils/history';
 import {
   GET_PROFILE,
+  GET_PROFILES,
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
@@ -86,4 +87,15 @@ export const clearCurrentProfile = () => {
   return {
     type: CLEAR_CURRENT_PROFILE
   };
+};
+
+export const getProfiles = () => async (dispatch) => {
+  dispatch(setProfileLoading());
+
+  try {
+    const { data } = await axios.get('/api/profile/all');
+    dispatch({ type: GET_PROFILES, payload: data });
+  } catch (error) {
+    dispatch({ type: GET_PROFILES, payload: null });
+  }
 };
