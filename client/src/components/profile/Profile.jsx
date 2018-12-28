@@ -24,6 +24,13 @@ class Profile extends PureComponent {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const { profile, loading } = this.props.profile;
+    if (prevProps.profile.loading && (!loading && !profile)) {
+      this.props.history.push('/not-found');
+    }
+  }
+
   render() {
     const { profile, loading } = this.props.profile;
     let profileContent;
@@ -47,7 +54,9 @@ class Profile extends PureComponent {
             education={profile.education}
             experience={profile.experience}
           />
-          <ProfileGithub />
+          {profile.githubusername && (
+            <ProfileGithub username={profile.githubusername} />
+          )}
         </div>
       );
     }
