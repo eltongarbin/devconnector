@@ -5,7 +5,8 @@ import {
   GET_ERRORS,
   POST_LOADING,
   GET_POSTS,
-  DELETE_POST
+  DELETE_POST,
+  GET_POST
 } from './types';
 
 export const setPostLoading = () => {
@@ -67,5 +68,16 @@ export const getPosts = () => async (dispatch) => {
     dispatch({ type: GET_POSTS, payload: data });
   } catch (error) {
     dispatch({ type: GET_POSTS, payload: null });
+  }
+};
+
+export const getPost = (id) => async (dispatch) => {
+  dispatch(setPostLoading());
+
+  try {
+    const { data } = await axios.get(`/api/posts/${id}`);
+    dispatch({ type: GET_POST, payload: data });
+  } catch (error) {
+    dispatch({ type: GET_POST, payload: null });
   }
 };

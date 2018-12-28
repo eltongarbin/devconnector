@@ -25,6 +25,7 @@ import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
 import NotFound from './components/not-found/NotFound';
 import Posts from './components/posts/Posts';
+import Post from './components/post/Post';
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -59,6 +60,7 @@ const App = () => {
               <PrivateRoute path="/add-experience" component={AddExperience} />
               <PrivateRoute path="/add-education" component={AddEducation} />
               <PrivateRoute path="/feed" component={Posts} />
+              <PrivateRoute path="/post/:id" component={Post} />
               <Route path="/not-found" component={NotFound} />
             </Switch>
           </div>
