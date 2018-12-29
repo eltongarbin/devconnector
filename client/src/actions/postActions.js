@@ -81,3 +81,18 @@ export const getPost = (id) => async (dispatch) => {
     dispatch({ type: GET_POST, payload: null });
   }
 };
+
+export const addComment = (postId, commentData) => async (dispatch) => {
+  try {
+    const { data } = await axios.post(
+      `/api/posts/comment/${postId}`,
+      commentData
+    );
+    dispatch({ type: GET_POST, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
+  }
+};
